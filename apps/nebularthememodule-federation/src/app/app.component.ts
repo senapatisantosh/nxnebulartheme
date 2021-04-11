@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+import { Component, OnInit } from '@angular/core';
+import { AnalyticsService } from '@nxnebulartheme/shared/util-core'
+import { SeoService } from '@nxnebulartheme/shared/util-core'
 
 @Component({
-  selector: 'nxnebulartheme-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'ngx-app',
+  template: '<router-outlet></router-outlet>',
 })
-export class AppComponent {
-  title = 'nebularthememodule-federation';
+export class AppComponent implements OnInit {
+
+  constructor(private analytics: AnalyticsService, private seoService: SeoService) {
+  }
+
+  ngOnInit(): void {
+    this.analytics.trackPageViews();
+    this.seoService.trackCanonicalChanges();
+  }
 }
